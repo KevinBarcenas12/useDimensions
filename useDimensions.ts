@@ -1,31 +1,6 @@
 import { useState, useLayoutEffect, useCallback } from "react";
-
-interface DimensionObject {
-    width?: number;
-    height?: number;
-    top?: number;
-    left?: number;
-    right?: number;
-    bottom?: number;
-    x?: number;
-    y?: number;
-}
-
-export function getDimensionObject(node: HTMLElement | null): DimensionObject {
-    if (node == null) return {};
-    let { width, height, top, left, right, bottom, ...rect } = node.getBoundingClientRect();
-
-    return {
-        x: 'x' in rect ? rect.x : left,
-        y: 'y' in rect ? rect.y : top,
-        top,
-        left,
-        right,
-        bottom,
-        width,
-        height,
-    };
-}
+import { getDimensionObject } from "./getDimensionObject";
+import type { DimensionObject } from "./types";
 
 export function useDimensions({ liveMeasure } = { liveMeasure: false }): [ (node: any) => void, DimensionObject ] {
     let [ dimensions, setDimensions ] = useState<DimensionObject>({});
